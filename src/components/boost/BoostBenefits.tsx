@@ -10,13 +10,13 @@ const benefits = [
   },
   {
     icon: ChevronsUp,
-    title: 'Boosted Listing',
-    description: 'Stand out in between of regular listings in weekly and all listings'
+    title: 'Basic Boost',
+    description: 'Stand out in between of regular listings in weekly and all tab'
   },
   {
     icon: AlarmClockOff,
     title: 'No waiting period',
-    description: 'No need to wait for weekly launch get listed immediately'
+    description: 'No need to wait for weekly launch, get listed immediately'
   },
   {
     icon: Users,
