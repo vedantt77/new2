@@ -7,6 +7,7 @@ import { StartupListPage } from '@/pages/StartupListPage';
 import { StartupDetailPage } from '@/pages/StartupDetailPage';
 import { BoostPage } from '@/pages/BoostPage';
 import { LaunchPage } from '@/pages/LaunchPage';
+import { SharedLaunchPage } from '@/pages/SharedLaunchPage';
 import { PageTransition } from '@/components/PageTransition';
 import { FeaturePopup } from '@/components/FeaturePopup';
 
@@ -50,6 +51,11 @@ function AppContent() {
             <Route path="/boost" element={
               <PageTransition>
                 <BoostPage />
+              </PageTransition>
+            } />
+            <Route path="/launch/:id" element={
+              <PageTransition>
+                <SharedLaunchPage />
               </PageTransition>
             } />
           </Routes>
