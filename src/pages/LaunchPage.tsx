@@ -12,29 +12,43 @@ export function LaunchPage() {
   const [rotatedWeeklyLaunches, setRotatedWeeklyLaunches] = useState(getWeeklyLaunches());
   const allLaunches = getLaunches();
 
+  // Filter launches by type, ensuring each launch is only in one category
   const premiumLaunches = allLaunches.filter(launch => launch.listingType === 'premium');
   const boostedLaunches = allLaunches.filter(launch => launch.listingType === 'boosted');
   const regularLaunches = allLaunches.filter(launch => !launch.listingType || launch.listingType === 'regular');
 
-  const insertBoostedLaunches = (launches: Launch[]) => {
-    if (!boostedLaunches.length) return launches;
+  const insertBoostedLaunches = (launches: Launch[], section: 'weekly' | 'all') => {
+    if (!boostedLaunches.length || !launches.length) return launches;
 
-    const result: Launch[] = [];
-    const spacing = Math.max(Math.floor(launches.length / (boostedLaunches.length + 1)), 1);
-    
+    const result: Array<Launch & { uniqueKey: string }> = [];
+    const spacing = Math.max(Math.floor(launches.length / boostedLaunches.length), 2);
+    let boostedIndex = 0;
+
     launches.forEach((launch, index) => {
-      result.push(launch);
-      if ((index + 1) % spacing === 0) {
-        const boostedIndex = Math.floor(index / spacing);
-        if (boostedLaunches[boostedIndex]) {
-          // Create a new object with a unique key for boosted launches
-          result.push({
-            ...boostedLaunches[boostedIndex],
-            id: `boosted-${boostedLaunches[boostedIndex].id}-${index}`
-          });
-        }
+      // Add unique key to regular launch
+      result.push({
+        ...launch,
+        uniqueKey: `${section}-regular-${launch.id}-${index}`
+      });
+      
+      // Insert boosted launch after every 'spacing' number of regular launches
+      if ((index + 1) % spacing === 0 && boostedIndex < boostedLaunches.length) {
+        result.push({
+          ...boostedLaunches[boostedIndex],
+          uniqueKey: `${section}-boosted-${boostedLaunches[boostedIndex].id}-${index}`
+        });
+        boostedIndex++;
       }
     });
+
+    // Add any remaining boosted launches at the end
+    while (boostedIndex < boostedLaunches.length) {
+      result.push({
+        ...boostedLaunches[boostedIndex],
+        uniqueKey: `${section}-boosted-${boostedLaunches[boostedIndex].id}-remaining-${boostedIndex}`
+      });
+      boostedIndex++;
+    }
 
     return result;
   };
@@ -47,7 +61,9 @@ export function LaunchPage() {
   }, [activeTab]);
 
   const rotateWeeklyLaunches = () => {
-    const weeklyLaunches = getWeeklyLaunches();
+    const weeklyLaunches = getWeeklyLaunches().filter(launch => 
+      !launch.listingType || launch.listingType === 'regular'
+    );
     if (weeklyLaunches.length <= 1) {
       setRotatedWeeklyLaunches(weeklyLaunches);
       return;
@@ -67,14 +83,18 @@ export function LaunchPage() {
           <AnimatedHeader />
           
           <h2 className="text-base sm:text-xl text-muted-foreground text-center mb-6 sm:mb-8">
-            Submit today and receive a quality traffic and backlink! Our unique rotation system ensures equal exposure for all startups by rotating listings every 10 minutes - no upvotes needed. 🔄✨
+            Submit today and receive quality traffic and backlink! Our unique rotation system ensures equal exposure for all startups by rotating listings every 10 minutes - no upvotes needed. 🔄✨
           </h2>
 
           <WeeklyCountdownTimer />
 
-          <div className="space-y-4 sm:space-y-6 mb-12">
-            {premiumLaunches.map((launch) => (
-              <PremiumListing key={launch.id} launch={launch} />
+          {/* Premium listings */}
+          <div className="space-y-8 mb-12">
+            {premiumLaunches.map((launch, index) => (
+              <PremiumListing 
+                key={`premium-${launch.id}-${index}`} 
+                launch={launch} 
+              />
             ))}
           </div>
 
@@ -85,10 +105,10 @@ export function LaunchPage() {
             </TabsList>
 
             <TabsContent value="weekly" className="mt-4 sm:mt-6">
-              <div className="border rounded-lg divide-y">
-                {insertBoostedLaunches(rotatedWeeklyLaunches).map((launch) => (
+              <div className="border rounded-lg divide-y [&>*]:p-6">
+                {insertBoostedLaunches(rotatedWeeklyLaunches, 'weekly').map((launch) => (
                   <LaunchListItem 
-                    key={launch.id} 
+                    key={launch.uniqueKey}
                     launch={launch}
                   />
                 ))}
@@ -96,10 +116,10 @@ export function LaunchPage() {
             </TabsContent>
 
             <TabsContent value="all" className="mt-4 sm:mt-6">
-              <div className="border rounded-lg divide-y">
-                {insertBoostedLaunches(regularLaunches).map((launch) => (
+              <div className="border rounded-lg divide-y [&>*]:p-6">
+                {insertBoostedLaunches(regularLaunches, 'all').map((launch) => (
                   <LaunchListItem 
-                    key={launch.id} 
+                    key={launch.uniqueKey}
                     launch={launch}
                   />
                 ))}
