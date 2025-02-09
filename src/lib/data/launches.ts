@@ -9,7 +9,8 @@ export const launches: Launch[] = [
     launchDate: '2025-02-3',
     website: 'https://example.com',
     category: 'Productivity',
-    listingType: 'regular'
+    listingType: 'regular',
+    doFollowBacklink: true
   },
   // Add more launches as needed
 ];
