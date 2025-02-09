@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Share2 } from 'lucide-react';
 import { Launch } from '@/lib/types/launch';
+import { shareUrl } from '@/lib/utils/share';
 
 interface LaunchListItemProps {
   launch: Launch;
@@ -28,6 +29,16 @@ export function LaunchListItem({ launch }: LaunchListItemProps) {
       default:
         return 'secondary';
     }
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `Check out ${launch.name} on startups.ad`,
+      text: launch.description,
+      url: `https://startups.ad/launch/${launch.id}`
+    };
+
+    await shareUrl(shareData);
   };
 
   return (
@@ -65,15 +76,29 @@ export function LaunchListItem({ launch }: LaunchListItemProps) {
           <p className="text-muted-foreground text-sm line-clamp-2 sm:line-clamp-1">{launch.description}</p>
         </div>
       </div>
-      <Button size="sm" className="w-full sm:w-auto shrink-0 bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-        <a 
-          href={launch.website} 
-          target="_blank" 
-          {...getLinkProps()}
+      <div className="flex gap-2 w-full sm:w-auto">
+        <Button 
+          size="sm" 
+          variant="outline"
+          className="flex-1 sm:flex-none"
+          onClick={handleShare}
         >
-          Visit <ExternalLink className="ml-2 h-4 w-4" />
-        </a>
-      </Button>
+          <Share2 className="h-4 w-4" />
+        </Button>
+        <Button 
+          size="sm" 
+          className="flex-1 sm:flex-none bg-primary text-primary-foreground hover:bg-primary/90" 
+          asChild
+        >
+          <a 
+            href={launch.website} 
+            target="_blank" 
+            {...getLinkProps()}
+          >
+            Visit <ExternalLink className="ml-2 h-4 w-4" />
+          </a>
+        </Button>
+      </div>
     </div>
   );
 }
