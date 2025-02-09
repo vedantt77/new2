@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const words = [
   { text: "Traffic", color: "text-green-500" },
   { text: "Backlink", color: "text-blue-500" },
-  { text: "Badge", color: "text-red-500" }
+  //{ text: "Badge", color: "text-red-500" }
 ];
 
 export function AnimatedHeader() {
