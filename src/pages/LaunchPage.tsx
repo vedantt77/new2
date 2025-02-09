@@ -25,13 +25,11 @@ export function LaunchPage() {
     let boostedIndex = 0;
 
     launches.forEach((launch, index) => {
-      // Add unique key to regular launch
       result.push({
         ...launch,
         uniqueKey: `${section}-regular-${launch.id}-${index}`
       });
       
-      // Insert boosted launch after every 'spacing' number of regular launches
       if ((index + 1) % spacing === 0 && boostedIndex < boostedLaunches.length) {
         result.push({
           ...boostedLaunches[boostedIndex],
@@ -41,7 +39,6 @@ export function LaunchPage() {
       }
     });
 
-    // Add any remaining boosted launches at the end
     while (boostedIndex < boostedLaunches.length) {
       result.push({
         ...boostedLaunches[boostedIndex],
@@ -105,7 +102,7 @@ export function LaunchPage() {
             </TabsList>
 
             <TabsContent value="weekly" className="mt-4 sm:mt-6">
-              <div className="border rounded-lg divide-y [&>*]:p-6">
+              <div className="space-y-4">
                 {insertBoostedLaunches(rotatedWeeklyLaunches, 'weekly').map((launch) => (
                   <LaunchListItem 
                     key={launch.uniqueKey}
@@ -116,7 +113,7 @@ export function LaunchPage() {
             </TabsContent>
 
             <TabsContent value="all" className="mt-4 sm:mt-6">
-              <div className="border rounded-lg divide-y [&>*]:p-6">
+              <div className="space-y-4">
                 {insertBoostedLaunches(regularLaunches, 'all').map((launch) => (
                   <LaunchListItem 
                     key={launch.uniqueKey}
