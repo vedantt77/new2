@@ -2,81 +2,10 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Rocket } from 'lucide-react';
-import { useEffect } from 'react';
-import { useTheme } from 'next-themes';
 import { pricingPlans } from '@/lib/data/pricing-plans';
 import { formatPrice } from '@/lib/utils/format-price';
 
 export function BoostPricing() {
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    const existingScript = document.querySelector('script[src*="paypal"]');
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const script = document.createElement('script');
-    script.src = `https://www.paypal.com/sdk/js?client-id=${import.meta.env.VITE_PAYPAL_CLIENT_ID}&currency=USD&intent=capture`;
-    script.async = true;
-
-    script.onload = () => {
-      pricingPlans.forEach(plan => {
-        if (plan.paypalPlanId && typeof plan.price === 'number') {
-          const buttonContainer = document.getElementById(`paypal-button-${plan.paypalPlanId}`);
-          if (buttonContainer && window.paypal) {
-            buttonContainer.innerHTML = '';
-            
-            window.paypal.Buttons({
-              style: {
-                layout: 'vertical',
-                color: theme === 'dark' ? 'black' : 'blue',
-                shape: 'rect',
-                label: 'pay',
-                height: 45
-              },
-              createOrder: (_data: any, actions: any) => {
-                return actions.order.create({
-                  purchase_units: [{
-                    amount: {
-                      value: plan.price.toString(),
-                      currency_code: 'USD'
-                    },
-                    description: `${plan.name} - ${plan.period}`
-                  }]
-                });
-              },
-              onApprove: async (_data: any, actions: any) => {
-                const order = await actions.order.capture();
-                console.log('Payment successful:', order);
-                
-                // Redirect based on the plan
-                if (plan.paypalPlanId === 'basic-boost') {
-                  window.location.href = 'https://tally.so/r/wAAGAW';
-                } else if (plan.paypalPlanId === 'pro-boost') {
-                  window.location.href = 'https://tally.so/r/w58D8P';
-                }
-              },
-              onError: (err: any) => {
-                console.error('Payment error:', err);
-                alert('Payment failed. Please try again.');
-              }
-            }).render(`#paypal-button-${plan.paypalPlanId}`);
-          }
-        }
-      });
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      const script = document.querySelector('script[src*="paypal"]');
-      if (script) {
-        script.remove();
-      }
-    };
-  }, [theme]);
-
   return (
     <section id="pricing" className="scroll-mt-20 py-20 bg-muted/50">
       <div className="container mx-auto px-4">
@@ -106,12 +35,26 @@ export function BoostPricing() {
                   </li>
                 ))}
               </ul>
-              {plan.paypalPlanId ? (
-                <div 
-                  id={`paypal-button-${plan.paypalPlanId}`} 
-                  className="mt-4 paypal-button-container"
-                  style={{ minHeight: '45px' }}
-                />
+              {plan.name === 'Basic Boost' ? (
+                <Button 
+                  className="w-full" 
+                  variant={plan.highlighted ? 'default' : 'outline'}
+                  asChild
+                >
+                  <a href="https://www.creem.io/payment/prod_7FO7FxcXQLx26V29dKw8TB" target="_blank" rel="noopener noreferrer">
+                    Buy Now
+                  </a>
+                </Button>
+              ) : plan.name === 'Premium Boost' ? (
+                <Button 
+                  className="w-full" 
+                  variant={plan.highlighted ? 'default' : 'outline'}
+                  asChild
+                >
+                  <a href="https://www.creem.io/payment/prod_7QY1xoxYvmD381CkLFgH9N" target="_blank" rel="noopener noreferrer">
+                    Buy Now
+                  </a>
+                </Button>
               ) : (
                 <Button 
                   className="w-full" 
