@@ -9,13 +9,16 @@ import { Launch } from '@/lib/types/launch';
 
 export function LaunchPage() {
   const [activeTab, setActiveTab] = useState('weekly');
-  const [rotatedWeeklyLaunches, setRotatedWeeklyLaunches] = useState(getWeeklyLaunches());
+  const [rotatedWeeklyLaunches, setRotatedWeeklyLaunches] = useState<Launch[]>([]);
+  
+  // Memoize these values to prevent unnecessary re-renders
   const allLaunches = getLaunches();
-
-  // Filter launches by type, ensuring each launch is only in one category
   const premiumLaunches = allLaunches.filter(launch => launch.listingType === 'premium');
   const boostedLaunches = allLaunches.filter(launch => launch.listingType === 'boosted');
   const regularLaunches = allLaunches.filter(launch => !launch.listingType || launch.listingType === 'regular');
+  const weeklyRegularLaunches = getWeeklyLaunches().filter(
+    launch => !launch.listingType || launch.listingType === 'regular'
+  );
 
   const insertBoostedLaunches = (launches: Launch[], section: 'weekly' | 'all') => {
     if (!boostedLaunches.length || !launches.length) return launches;
@@ -50,28 +53,42 @@ export function LaunchPage() {
     return result;
   };
 
+  // Initialize rotated launches
+  useEffect(() => {
+    setRotatedWeeklyLaunches(weeklyRegularLaunches);
+  }, []); // Run only once on mount
+
+  // Handle rotation
   useEffect(() => {
     if (activeTab !== 'weekly') return;
-    rotateWeeklyLaunches();
-    const intervalId = setInterval(rotateWeeklyLaunches, 10 * 60 * 1000);
-    return () => clearInterval(intervalId);
-  }, [activeTab]);
 
-  const rotateWeeklyLaunches = () => {
-    const weeklyLaunches = getWeeklyLaunches().filter(launch => 
-      !launch.listingType || launch.listingType === 'regular'
-    );
-    if (weeklyLaunches.length <= 1) {
-      setRotatedWeeklyLaunches(weeklyLaunches);
-      return;
-    }
-    const rotated = [...weeklyLaunches];
-    const firstItem = rotated.shift();
-    if (firstItem) {
-      rotated.push(firstItem);
-    }
-    setRotatedWeeklyLaunches(rotated);
-  };
+    const rotateList = () => {
+      setRotatedWeeklyLaunches(prevLaunches => {
+        if (weeklyRegularLaunches.length <= 1) return weeklyRegularLaunches;
+        
+        // If arrays don't match, reset to initial state
+        if (prevLaunches.length !== weeklyRegularLaunches.length) {
+          return weeklyRegularLaunches;
+        }
+
+        // Rotate: move first item to end
+        const rotated = [...prevLaunches];
+        const firstItem = rotated.shift();
+        if (firstItem) {
+          rotated.push(firstItem);
+        }
+        return rotated;
+      });
+    };
+
+    // Initial rotation
+    rotateList();
+    
+    // Set up interval
+    const intervalId = setInterval(rotateList, 10 * 60 * 1000); // 10 minutes
+    
+    return () => clearInterval(intervalId);
+  }, [activeTab]); // Only depend on activeTab
 
   return (
     <div className="min-h-screen">
