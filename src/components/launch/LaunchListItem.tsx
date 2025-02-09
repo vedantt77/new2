@@ -31,9 +31,15 @@ export function LaunchListItem({ launch }: LaunchListItemProps) {
   };
 
   return (
-    <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border-b hover:bg-accent/5 transition-colors ${
-      launch.listingType === 'boosted' ? 'bg-primary/5' : ''
-    }`}>
+    <div className={`
+      flex flex-col sm:flex-row items-start sm:items-center justify-between 
+      p-6 rounded-lg shadow-sm
+      transition duration-200 ease-in-out
+      ${launch.listingType === 'boosted' 
+        ? 'bg-primary/5 border border-primary/20 hover:border-primary/30' 
+        : 'border hover:border-primary/20 hover:bg-accent/5'
+      }
+    `}>
       <div className="flex items-start sm:items-center gap-4 w-full sm:w-auto mb-4 sm:mb-0">
         <img
           src={launch.logo}
