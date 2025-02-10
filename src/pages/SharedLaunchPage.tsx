@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getLaunches } from '@/lib/data/launches';
 import { Launch } from '@/lib/types/launch';
 import { LaunchListItem } from '@/components/launch/LaunchListItem';
+import { WeeklyCountdownTimer } from '@/components/WeeklyCountdownTimer';
 
 export function SharedLaunchPage() {
   const { id } = useParams<{ id: string }>();
@@ -60,6 +61,9 @@ export function SharedLaunchPage() {
         </h1>
         <div className="max-w-3xl mx-auto">
           <LaunchListItem launch={launch} />
+          <div className="mt-8">
+            <WeeklyCountdownTimer />
+          </div>
         </div>
       </div>
     </div>
