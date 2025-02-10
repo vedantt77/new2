@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { StartupListPage } from '@/pages/StartupListPage';
@@ -70,8 +71,10 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <AppContent />
+      <ThemeProvider>
+        <ScrollToTop />
+        <AppContent />
+      </ThemeProvider>
     </Router>
   );
 }
