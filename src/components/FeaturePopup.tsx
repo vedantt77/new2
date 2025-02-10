@@ -37,7 +37,7 @@ export function FeaturePopup() {
           to="/boost"
           className="text-sm font-medium pr-6"
         >
-          🥇 Get Featured for $10/week
+          🥇 Get Featured for <span className="text-green-500">$10/week</span>
         </Link>
         <button
           onClick={(e) => {
