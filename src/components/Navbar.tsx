@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeToggle } from './ThemeToggle';
 
 export function Navbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -53,17 +54,21 @@ export function Navbar() {
             >
               + Submit
             </Link>
+            <ThemeToggle />
           </div>
-          <motion.button
-            className="md:hidden flex items-center text-foreground focus:outline-none"
-            aria-label="Toggle navigation menu"
-            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            animate={isMobileMenuOpen ? "open" : "closed"}
-            variants={buttonVariants}
-            transition={{ duration: 0.3 }}
-          >
-            ☰
-          </motion.button>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <motion.button
+              className="flex items-center text-foreground focus:outline-none"
+              aria-label="Toggle navigation menu"
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              animate={isMobileMenuOpen ? "open" : "closed"}
+              variants={buttonVariants}
+              transition={{ duration: 0.3 }}
+            >
+              ☰
+            </motion.button>
+          </div>
         </div>
         <AnimatePresence>
           {isMobileMenuOpen && (
