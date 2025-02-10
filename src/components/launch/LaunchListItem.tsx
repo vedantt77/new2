@@ -66,9 +66,9 @@ export function LaunchListItem({ launch }: LaunchListItemProps) {
               variant={getBadgeVariant()} 
               className={`w-fit ${
                 launch.listingType === 'premium' 
-                  ? 'bg-purple-100 text-purple-800 dark:bg-purple-500/30 dark:text-purple-200 border-purple-200 dark:border-purple-500/50' 
+                  ? 'bg-purple-500 text-purple-50 dark:bg-purple-600 dark:text-purple-50' 
                   : launch.listingType === 'boosted'
-                    ? 'bg-amber-100 text-amber-800 dark:bg-yellow-500/30 dark:text-yellow-200 border-amber-200 dark:border-yellow-500/50'
+                    ? 'bg-amber-500 text-amber-50 dark:bg-yellow-600 dark:text-yellow-50'
                     : ''
               }`}
             >
