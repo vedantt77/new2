@@ -23,7 +23,7 @@ export function PremiumListing({ launch }: PremiumListingProps) {
             <h3 className="text-lg sm:text-xl font-semibold">{launch.name}</h3>
             <Badge 
               variant="secondary" 
-              className="w-fit sm:w-auto bg-purple-500 text-purple-50 dark:bg-purple-600 dark:text-purple-50"
+              className="w-fit sm:w-auto bg-purple-500 text-purple-50 dark:bg-purple-600 dark:text-purple-50 pointer-events-none"
             >
               Premium
             </Badge>
