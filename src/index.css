@@ -64,6 +64,19 @@
   }
 }
 
+@keyframes shine {
+  from {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  to {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+.animate-shine {
+  animation: shine 1.5s ease-in-out infinite;
+}
+
 /* PayPal Button Container Styles */
 .paypal-button-container {
   margin-top: 1rem;
