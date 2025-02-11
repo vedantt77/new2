@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
@@ -10,7 +10,6 @@ export function FeaturePopup() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show popup when user has scrolled 200px
       if (window.scrollY > 200) {
         setIsVisible(true);
       }
@@ -20,36 +19,65 @@ export function FeaturePopup() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Don't show on boost page or if dismissed
   if (location.pathname === '/boost' || isDismissed) {
     return null;
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-      transition={{ duration: 0.3 }}
-      className="fixed bottom-4 right-4 z-50"
-    >
-      <div className="bg-background border shadow-lg rounded-lg p-4 relative flex items-center">
-        <Link
-          to="/boost"
-          className="text-sm font-medium pr-6"
-        >
-          🥇 Get Featured for <span className="text-green-500">$10/week</span>
-        </Link>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setIsDismissed(true);
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 50, scale: 0.9 }}
+          transition={{ 
+            type: "spring",
+            stiffness: 400,
+            damping: 25
           }}
-          className="absolute top-2 right-2 p-1 hover:bg-accent rounded-full"
-          aria-label="Close"
+          className="fixed bottom-4 right-4 z-50"
         >
-          <X className="h-4 w-4 text-muted-foreground" />
-        </button>
-      </div>
-    </motion.div>
+          <motion.div 
+            className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 backdrop-blur-md border-2 border-primary/20 shadow-lg rounded-lg p-6 relative"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <motion.div
+              className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [1, 0.8, 1]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <Link
+              to="/boost"
+              className="flex items-center gap-3"
+            >
+              <div className="flex flex-col">
+                <span className="text-base font-semibold">🚀 Get Featured Now</span>
+                <span className="text-sm text-muted-foreground">
+                  Starting at <span className="text-green-500 font-bold">$10/week</span>
+                </span>
+              </div>
+            </Link>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsDismissed(true);
+              }}
+              className="absolute top-2 right-2 p-1 hover:bg-accent/50 rounded-full transition-colors"
+              aria-label="Close"
+            >
+              <X className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
