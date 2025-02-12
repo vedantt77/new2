@@ -54,18 +54,6 @@ export function FeaturePopup() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <motion.div
-              className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [1, 0.8, 1]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
             <Link
               to="/boost"
               className="flex items-center gap-3"
