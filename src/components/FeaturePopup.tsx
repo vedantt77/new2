@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 export function FeaturePopup() {
   const location = useLocation();
@@ -10,14 +11,25 @@ export function FeaturePopup() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 200) {
+      if (window.scrollY > 200 && !isVisible) {
         setIsVisible(true);
+        // Trigger confetti when popup appears
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { x: 0.9, y: 0.9 }, // Start from bottom right
+          colors: ['#22c55e', '#3b82f6', '#6366f1'], // Green, blue, indigo
+          ticks: 200,
+          gravity: 0.8,
+          scalar: 0.9,
+          shapes: ['circle', 'square'],
+        });
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isVisible]);
 
   if (location.pathname === '/boost' || isDismissed) {
     return null;
