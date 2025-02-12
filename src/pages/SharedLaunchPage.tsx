@@ -4,6 +4,7 @@ import { getLaunches } from '@/lib/data/launches';
 import { Launch } from '@/lib/types/launch';
 import { LaunchListItem } from '@/components/launch/LaunchListItem';
 import { WeeklyCountdownTimer } from '@/components/WeeklyCountdownTimer';
+import confetti from 'canvas-confetti';
 
 export function SharedLaunchPage() {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +38,36 @@ export function SharedLaunchPage() {
         }
         meta.setAttribute('content', content);
       });
+
+      // Trigger confetti effect
+      const duration = 2000;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+      function randomInRange(min: number, max: number) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval: any = setInterval(() => {
+        const timeLeft = duration - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+
+        // Since particles fall down, start a bit higher than random
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+        });
+        confetti({
+          ...defaults,
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        });
+      }, 250);
     }
   }, [id]);
 
