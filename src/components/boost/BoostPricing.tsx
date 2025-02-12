@@ -1,10 +1,38 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Rocket } from 'lucide-react';
 import { pricingPlans } from '@/lib/data/pricing-plans';
 import { formatPrice } from '@/lib/utils/format-price';
 import { motion } from 'framer-motion';
+import { LaunchListItem } from '@/components/launch/LaunchListItem';
+import { PremiumListing } from '@/components/launch/PremiumListing';
+
+// Preview data for Basic and Premium boosts
+const basicPreview = {
+  id: 'preview-basic',
+  name: 'Your Startup',
+  logo: '/images/eglogo.png',
+  description: 'Your startup description will appear here with enhanced visibility',
+  launchDate: new Date().toISOString(),
+  website: 'https://example.com',
+  category: 'SaaS',
+  listingType: 'boosted',
+  doFollowBacklink: true
+};
+
+const premiumPreview = {
+  id: 'preview-premium',
+  name: 'Your Startup',
+  logo: '/images/eglogo.png',
+  description: 'Your startup will be featured prominently at the top of the page',
+  launchDate: new Date().toISOString(),
+  website: 'https://example.com',
+  category: 'Featured',
+  listingType: 'premium',
+  doFollowBacklink: true
+};
 
 export function BoostPricing() {
   return (
@@ -49,6 +77,43 @@ export function BoostPricing() {
                     </li>
                   ))}
                 </ul>
+
+                {/* Preview Dialog for Basic Boost */}
+                {plan.name === 'Basic Boost' && (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="w-full mb-3">
+                        Preview Boost
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[600px]">
+                      <div className="pt-4">
+                        <h3 className="text-lg font-semibold mb-4">Basic Boost Preview</h3>
+                        <p className="text-muted-foreground mb-4">Your startup will appear like this in the weekly and all listings:</p>
+                        <LaunchListItem launch={basicPreview} />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                )}
+
+                {/* Preview Dialog for Premium Boost */}
+                {plan.name === 'Premium Boost' && (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="w-full mb-3">
+                        Preview Boost
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[600px]">
+                      <div className="pt-4">
+                        <h3 className="text-lg font-semibold mb-4">Premium Boost Preview</h3>
+                        <p className="text-muted-foreground mb-4">Your startup will be featured prominently at the top of the page:</p>
+                        <PremiumListing launch={premiumPreview} />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                )}
+
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
