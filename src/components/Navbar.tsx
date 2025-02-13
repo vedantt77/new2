@@ -81,7 +81,7 @@ export function Navbar() {
               >
                 <Link
                   to="https://tally.so/r/mV92zJ"
-                  className="ml-2 px-4 py-2 text-foreground font-medium rounded-lg border border-foreground transition-colors duration-200 hover:bg-accent/80"
+                  className="ml-2 px-4 py-2 text-foreground font-medium rounded-lg border border-foreground transition-colors duration-200 hover:bg-accent/80 rainbow-border-button"
                 >
                   + Submit
                 </Link>
@@ -91,12 +91,28 @@ export function Navbar() {
             <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
               <motion.button
-                className="flex items-center text-foreground focus:outline-none"
+                className="flex items-center text-foreground focus:outline-none p-2"
                 aria-label="Toggle navigation menu"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
                 whileTap={{ scale: 0.9 }}
               >
-                ☰
+                <div 
+                  className="hamburger-icon" 
+                  data-active={isMobileMenuOpen}
+                >
+                  <motion.span 
+                    className="hamburger-line"
+                    initial={false}
+                  />
+                  <motion.span 
+                    className="hamburger-line"
+                    initial={false}
+                  />
+                  <motion.span 
+                    className="hamburger-line"
+                    initial={false}
+                  />
+                </div>
               </motion.button>
             </div>
           </div>
@@ -123,7 +139,7 @@ export function Navbar() {
                       <Link 
                         to={item === '+ Submit' ? "https://tally.so/r/mV92zJ" : `/${item.toLowerCase()}`}
                         className={`block px-4 py-2 text-foreground rounded-lg transition-colors duration-200 hover:bg-accent/80 ${
-                          item === '+ Submit' ? 'border border-foreground mt-2' : ''
+                          item === '+ Submit' ? 'border border-foreground mt-2 rainbow-border-button' : ''
                         }`}
                         onClick={() => setMobileMenuOpen(false)}
                       >
