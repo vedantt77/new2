@@ -15,6 +15,7 @@ export function LaunchPage() {
   const [activeTab, setActiveTab] = useState('weekly');
   const [rotatedWeeklyLaunches, setRotatedWeeklyLaunches] = useState<Launch[]>([]);
   const [rotatedBoostedLaunches, setRotatedBoostedLaunches] = useState<Launch[]>([]);
+  const [lastRotationTime, setLastRotationTime] = useState<number>(Date.now());
   
   // Memoize these values to prevent unnecessary re-renders
   const allLaunches = getLaunches();
@@ -36,7 +37,7 @@ export function LaunchPage() {
     const result: ListItem[] = [];
     const spacing = Math.max(Math.floor(launches.length / rotatedBoostedLaunches.length), 2);
     let boostedIndex = 0;
-    const timestamp = Date.now(); // Add timestamp to ensure uniqueness across re-renders
+    const timestamp = lastRotationTime; // Use lastRotationTime for consistent keys within a rotation period
 
     launches.forEach((launch, index) => {
       result.push({
@@ -75,50 +76,48 @@ export function LaunchPage() {
 
   // Handle rotation for both regular and boosted launches
   useEffect(() => {
-    if (activeTab !== 'weekly') return;
+    const ROTATION_INTERVAL = 10 * 60 * 1000; // 10 minutes in milliseconds
 
     const rotateList = () => {
-      // Rotate regular launches
-      setRotatedWeeklyLaunches(prevLaunches => {
-        if (weeklyRegularLaunches.length <= 1) return weeklyRegularLaunches;
-        
-        if (prevLaunches.length !== weeklyRegularLaunches.length) {
-          return weeklyRegularLaunches;
-        }
+      const currentTime = Date.now();
+      
+      // Only rotate if 10 minutes have passed since last rotation
+      if (currentTime - lastRotationTime >= ROTATION_INTERVAL) {
+        // Rotate regular launches
+        setRotatedWeeklyLaunches(prevLaunches => {
+          if (weeklyRegularLaunches.length <= 1) return weeklyRegularLaunches;
+          const rotated = [...prevLaunches];
+          const firstItem = rotated.shift();
+          if (firstItem) {
+            rotated.push(firstItem);
+          }
+          return rotated;
+        });
 
-        const rotated = [...prevLaunches];
-        const firstItem = rotated.shift();
-        if (firstItem) {
-          rotated.push(firstItem);
-        }
-        return rotated;
-      });
+        // Rotate boosted launches
+        setRotatedBoostedLaunches(prevBoosted => {
+          if (boostedLaunches.length <= 1) return boostedLaunches;
+          const rotated = [...prevBoosted];
+          const firstItem = rotated.shift();
+          if (firstItem) {
+            rotated.push(firstItem);
+          }
+          return rotated;
+        });
 
-      // Rotate boosted launches
-      setRotatedBoostedLaunches(prevBoosted => {
-        if (boostedLaunches.length <= 1) return boostedLaunches;
-        
-        if (prevBoosted.length !== boostedLaunches.length) {
-          return boostedLaunches;
-        }
-
-        const rotated = [...prevBoosted];
-        const firstItem = rotated.shift();
-        if (firstItem) {
-          rotated.push(firstItem);
-        }
-        return rotated;
-      });
+        // Update last rotation time
+        setLastRotationTime(currentTime);
+      }
     };
 
-    // Initial rotation
+    // Initial rotation check
     rotateList();
     
-    // Set up interval - rotate every 10 minutes
-    const intervalId = setInterval(rotateList, 10 * 60 * 1000);
+    // Set up interval - check every minute
+    const intervalId = setInterval(rotateList, 60 * 1000); // Check every minute
     
     return () => clearInterval(intervalId);
-  }, [activeTab, boostedLaunches.length]); // Depend on activeTab and boostedLaunches length
+  }, [lastRotationTime, boostedLaunches.length, weeklyRegularLaunches]); 
 
   return (
     <div className="min-h-screen">
