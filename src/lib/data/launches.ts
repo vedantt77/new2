@@ -1,83 +1,106 @@
 import { Launch } from '../types/launch';
 
 export const launches: Launch[] = [
-  {
-    id: 'launch-1',
-    name: 'ProductX',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-3',
-    website: 'https://example.com',
-    category: 'Productivity',
-    listingType: 'boosted',
-    doFollowBacklink: true
-  },
-  {
-    id: 'launch-2',
-    name: 'ProductY',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-9',
-    website: 'https://example.com',
-    category: 'Productivity',
-    listingType: 'regular',
-    doFollowBacklink: true
-  },
-  {
-    id: 'launch-3',
-    name: 'Productq',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-9',
-    website: 'https://example.com',
-    category: 'Productivity',
-    listingType: 'regular',
-    doFollowBacklink: true
-  }, 
-  {
-    id: 'launch-4',
-    name: 'Productw',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-9',
-    website: 'https://example.com',
-    category: 'Productivity',
-    listingType: 'regular',
-    doFollowBacklink: true
-  },
-  {
-    id: 'launch-5',
-    name: 'Productr',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-3',
-    website: 'https://example.com',
-    category: 'Productivity',
-    listingType: 'boosted',
-    doFollowBacklink: true
-  },
-  {
-    id: 'launch-6',
-    name: 'Productt',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-9',
-    website: 'https://example.com',
-    category: 'Productivity',
+   {
+    id: 'Microsaaslink-1',
+    name: 'Microsaaslink',
+    logo: '/images/android-chrome-512x512.png',
+    description: 'Uncover Hidden MicroSaaS Opportunities by analyzing established SaaS pain points and turning them into profitable micro-products',
+    launchDate: '2025-02-16',
+    website: 'https://microsaasl.ink',
+    category: 'analystics',
     listingType: 'regular',
     doFollowBacklink: true
   },
    {
-    id: 'launch-7',
-    name: 'Productu',
-    logo: '/images/eglogo.png',
-    description: 'A revolutionary new product management tool',
-    launchDate: '2025-02-9',
-    website: 'https://example.com',
-    category: 'Productivity',
+    id: 'Directonaut-2',
+    name: 'Directonaut',
+    logo: 'images/Directonaut.png',
+    description: 'Expert marketing guidance meets AI power for bootstrapped success',
+    launchDate: '2025-02-16',
+    website: 'https://directonaut.com',
+    category: 'marketing',
     listingType: 'regular',
     doFollowBacklink: true
   },
+  {
+    id: 'AllyMatter-3',
+    name: 'AllyMatter',
+    logo: 'images/AllyMatter Logo.png',
+    description: 'Knowledge base tool built for internal teams',
+    launchDate: '2025-02-16',
+    website: 'https://allymatter.com',
+    category: 'resource',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Smartpictures-4',
+    name: 'Smartpictures',
+    logo: 'images/Smartpictures.png',
+    description: 'Smartpictures.ai generates realistic professional headshots in just 10 minutes.',
+    launchDate: '2025-02-16',
+    website: 'https://smartpictures.ai/',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'NextUpKit-5',
+    name: 'NextUpKit',
+    logo: 'images/nextupkit.png',
+    description: 'Affordable & Fully-Featured Next.js SaaS Starter Kit',
+    launchDate: '2025-02-16',
+    website: 'https://www.nextupkit.com/',
+    category: 'resource',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Devterms-6',
+    name: 'Devterms',
+    logo: '/images/Devterms.png',
+    description: 'Tech is everywhere and understanding technical jargon can be overwhelming for beginners and non-tech users',
+    launchDate: '2025-02-16',
+    website: 'https://www.devterms.ai/',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Whisperin-7',
+    name: 'Whisperin',
+    logo: '/images/Whisperin.png',
+    description: 'Transform speech into optimized posts',
+    launchDate: '2025-02-16',
+    website: 'https://www.korelabstech.com/whisperin',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Cairnify-8',
+    name: 'Cairnify',
+    logo: '/images/Cairnify.png',
+    description: 'Cairnify is a personalized search engine for advanced queries, quick access, and smarter navigation.',
+    launchDate: '2025-02-16',
+    website: 'https://cairnify.com',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'InDocify-9',
+    name: 'InDocify',
+    logo: '/images/InDocify.jpeg',
+    description: 'No More Digging Through Code, Just Ask',
+    launchDate: '2025-02-16',
+    website: 'https://www.indocify.com/',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  
 ];
 
 export function getLaunches(): Launch[] {
