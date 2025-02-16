@@ -8,7 +8,7 @@ export const launches: Launch[] = [
     description: 'Uncover Hidden MicroSaaS Opportunities by analyzing established SaaS pain points and turning them into profitable micro-products',
     launchDate: '2025-02-16',
     website: 'https://microsaasl.ink',
-    category: 'analystics',
+    category: 'analytics',
     listingType: 'regular',
     doFollowBacklink: true
   },
@@ -30,7 +30,7 @@ export const launches: Launch[] = [
     description: 'Knowledge base tool built for internal teams',
     launchDate: '2025-02-16',
     website: 'https://allymatter.com',
-    category: 'resource',
+    category: 'productivity',
     listingType: 'regular',
     doFollowBacklink: true
   },
@@ -52,7 +52,7 @@ export const launches: Launch[] = [
     description: 'Affordable & Fully-Featured Next.js SaaS Starter Kit',
     launchDate: '2025-02-16',
     website: 'https://www.nextupkit.com/',
-    category: 'resource',
+    category: 'business',
     listingType: 'regular',
     doFollowBacklink: true
   },
@@ -129,7 +129,7 @@ export const launches: Launch[] = [
     description: 'Its a tool that helps early founders and product teams capture and centralise feedback from different sources and create voting-based roadmaps & changelogs.',
     launchDate: '2025-02-16',
     website: 'https://spurvo.com/',
-    category: 'feedback',
+    category: 'business',
     listingType: 'regular',
     doFollowBacklink: true
   },
@@ -140,6 +140,83 @@ export const launches: Launch[] = [
     description: 'Turn Your Instagram DMs into a 24/7 Sales Machine—Without Lifting a Finger',
     launchDate: '2025-02-16',
     website: 'https://dmconvo.ai',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'SynchNotes-14',
+    name: 'SynchNotes',
+    logo: '/images/synchnotesLogo2.png',
+    description: 'Simplify your meeting summaries and tasks in a calendar view',
+    launchDate: '2025-02-16',
+    website: 'https://synchnotes.com/',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'MX Suite-15',
+    name: 'MX Suite',
+    logo: '/images/MX Suite.png',
+    description: 'MX Suite isn’t just another warming service—it’s an all-in-one email platform. ',
+    launchDate: '2025-02-16',
+    website: 'https://mxsuite.co',
+    category: 'business',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Ezihost-16',
+    name: 'Ezihost',
+    logo: '/images/ezilogo.png',
+    description: 'Upload and share your Landing Page, PDFs and more for free ',
+    launchDate: '2025-02-16',
+    website: 'https://ezihost.org',
+    category: 'business',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Typersguild-17',
+    name: 'Typersguild',
+    logo: '/images/Web_Photo_Editor (2) (1).jpg',
+    description: 'Master touch typing by typing out classic novels',
+    launchDate: '2025-02-16',
+    website: 'https://typersguild.com',
+    category: 'productivity',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Growmefy-18',
+    name: 'Growmefy',
+    logo: '/images/Growmefy.png',
+    description: 'Growmefy helps you collect more reviews on Google, Trustpilot, Tripadvisor, and more, improving your online presence and local SEO.',
+    launchDate: '2025-02-16',
+    website: 'https://growmefy.com',
+    category: 'business',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'DeutschDictionary-19',
+    name: 'Deutsch Dictionary',
+    logo: '/images/DeutschDictionary.png',
+    description: 'DeutschDictionary is a free tool for learning German with translations, conjugations, and example sentences.',
+    launchDate: '2025-02-16',
+    website: 'https://deutschdictionary.com',
+    category: 'productivity',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Squirrel-20',
+    name: 'Squirrel',
+    logo: '/images/squirrel120x120.png',
+    description: 'Our AI Agent team that replaces the need for internal recruiters or ATS systems, automating hiring for startups',
+    launchDate: '2025-02-16',
+    website: 'https://usesquirrel.com',
     category: 'Ai tool',
     listingType: 'regular',
     doFollowBacklink: true
