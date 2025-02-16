@@ -100,6 +100,50 @@ export const launches: Launch[] = [
     listingType: 'regular',
     doFollowBacklink: true
   },
+  {
+    id: 'WebCull-10',
+    name: 'WebCull',
+    logo: '/images/WebCull.png',
+    description: 'WebCull is a secure, end-to-end encrypted bookmark manager for organizing and syncing your links.',
+    launchDate: '2025-02-16',
+    website: 'https://webcull.com/',
+    category: 'productivity',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Snowpixel-11',
+    name: 'Snowpixel',
+    logo: '/images/Snowpixel.png',
+    description: 'Generative Media Toolkit',
+    launchDate: '2025-02-16',
+    website: 'https://snowpixel.app/',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'Spurvo-12',
+    name: 'Spurvo',
+    logo: '/images/Spurvo.png',
+    description: 'Its a tool that helps early founders and product teams capture and centralise feedback from different sources and create voting-based roadmaps & changelogs.',
+    launchDate: '2025-02-16',
+    website: 'https://spurvo.com/',
+    category: 'feedback',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
+  {
+    id: 'DMconvo-13',
+    name: 'DMconvo',
+    logo: '/images/DMconvo.jpeg',
+    description: 'Turn Your Instagram DMs into a 24/7 Sales Machine—Without Lifting a Finger',
+    launchDate: '2025-02-16',
+    website: 'https://dmconvo.ai',
+    category: 'Ai tool',
+    listingType: 'regular',
+    doFollowBacklink: true
+  },
   
 ];
 
@@ -132,3 +176,4 @@ export function getWeeklyLaunches(): Launch[] {
     return launchDate >= startOfWeekUTC && launchDate <= endOfWeekUTC;
   });
 }
+
