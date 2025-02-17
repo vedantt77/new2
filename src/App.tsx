@@ -1,16 +1,33 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { StartupListPage } from '@/pages/StartupListPage';
-import { StartupDetailPage } from '@/pages/StartupDetailPage';
-import { BoostPage } from '@/pages/BoostPage';
-import { LaunchPage } from '@/pages/LaunchPage';
-import { SharedLaunchPage } from '@/pages/SharedLaunchPage';
 import { PageTransition } from '@/components/PageTransition';
 import { FeaturePopup } from '@/components/FeaturePopup';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Lazy load pages
+const LaunchPage = lazy(() => import('@/pages/LaunchPage').then(module => ({ default: module.LaunchPage })));
+const StartupListPage = lazy(() => import('@/pages/StartupListPage').then(module => ({ default: module.StartupListPage })));
+const StartupDetailPage = lazy(() => import('@/pages/StartupDetailPage').then(module => ({ default: module.StartupDetailPage })));
+const BoostPage = lazy(() => import('@/pages/BoostPage').then(module => ({ default: module.BoostPage })));
+const SharedLaunchPage = lazy(() => import('@/pages/SharedLaunchPage').then(module => ({ default: module.SharedLaunchPage })));
+
+// Loading fallback component
+function LoadingFallback() {
+  return (
+    <div className="min-h-[80vh] w-full flex items-center justify-center">
+      <div className="space-y-4 w-full max-w-3xl px-4">
+        <Skeleton className="h-12 w-3/4 mx-auto" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-4 w-4/6" />
+      </div>
+    </div>
+  );
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,27 +53,37 @@ function AppContent() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={
               <PageTransition>
-                <LaunchPage />
+                <Suspense fallback={<LoadingFallback />}>
+                  <LaunchPage />
+                </Suspense>
               </PageTransition>
             } />
             <Route path="/startups" element={
               <PageTransition>
-                <StartupListPage />
+                <Suspense fallback={<LoadingFallback />}>
+                  <StartupListPage />
+                </Suspense>
               </PageTransition>
             } />
             <Route path="/startup/:id" element={
               <PageTransition>
-                <StartupDetailPage />
+                <Suspense fallback={<LoadingFallback />}>
+                  <StartupDetailPage />
+                </Suspense>
               </PageTransition>
             } />
             <Route path="/boost" element={
               <PageTransition>
-                <BoostPage />
+                <Suspense fallback={<LoadingFallback />}>
+                  <BoostPage />
+                </Suspense>
               </PageTransition>
             } />
             <Route path="/launch/:id" element={
               <PageTransition>
-                <SharedLaunchPage />
+                <Suspense fallback={<LoadingFallback />}>
+                  <SharedLaunchPage />
+                </Suspense>
               </PageTransition>
             } />
           </Routes>
