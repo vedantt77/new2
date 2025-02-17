@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Share2 } from 'lucide-react';
 import { Launch } from '@/lib/types/launch';
 import { shareUrl } from '@/lib/utils/share';
-import { motion } from 'framer-motion';
 import { memo } from 'react';
 
 interface LaunchListItemProps {
@@ -63,6 +63,9 @@ export const LaunchListItem = memo(function LaunchListItem({ launch }: LaunchLis
           alt={launch.name}
           className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
           loading="lazy"
+          decoding="async"
+          width="48"
+          height="48"
         />
         <div className="flex-1 min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-0">
