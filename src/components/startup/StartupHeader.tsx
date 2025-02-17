@@ -21,6 +21,10 @@ export function StartupHeader({ name, logo, shortDescription, mrr, website, isVe
           src={logo}
           alt={name}
           className="w-16 h-16 rounded-lg object-cover"
+          loading="eager"
+          decoding="async"
+          width="64"
+          height="64"
         />
         <div className="flex-1">
           <StartupName 
