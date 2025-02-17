@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     visualizer({
-      template: "treemap", // or sunburst
+      template: "treemap",
       open: true,
       gzipSize: true,
       brotliSize: true,
@@ -27,8 +27,15 @@ export default defineConfig({
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
-      }
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.trace'],
+      },
+      mangle: {
+        safari10: true,
+      },
+      format: {
+        comments: false,
+      },
     },
     rollupOptions: {
       output: {
@@ -38,6 +45,15 @@ export default defineConfig({
           ui: ['@radix-ui/react-icons', 'lucide-react'],
           router: ['react-router-dom'],
         },
+        assetFileNames: (assetInfo) => {
+          let extType = assetInfo.name.split('.').at(1);
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = 'img';
+          }
+          return `assets/${extType}/[name]-[hash][extname]`;
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
       },
     },
   },
